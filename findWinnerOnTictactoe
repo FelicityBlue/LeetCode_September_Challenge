@@ -1,0 +1,77 @@
+
+	public String tictactoe(int[][] moves) {
+		char[][] ttt = new char[3][3];
+		int[] currentMove;
+		/*
+		 * putting X or O checking whose turn is it
+		 */
+		for (int i = 0; i < moves.length; i++) {
+			currentMove = moves[i];
+
+			if (i % 2 == 0) {
+				ttt[currentMove[0]][currentMove[1]] = 'X';
+			} else if (i % 2 == 1) {
+				ttt[currentMove[0]][currentMove[1]] = 'O';
+			}
+		}
+
+		// check who win
+		if (checkWin('X', ttt)) {
+			return "A";
+		} else if (checkWin('O', ttt)) {
+			return "B";
+		} else if (moves.length < 9) {
+			return "Pending";
+		} else {
+			return "Draw";
+		}
+
+	
+	}
+
+	/*
+  *check if input player win
+  * @param character to check, array t0 check
+  * @return if the player win or not
+  */
+	public boolean checkWin(char input, char[][] t) {
+		// check the possible winning situations from [0,0]
+		if (Character.compare(t[0][0], input) == 0) {
+			if (((Character.compare(t[1][0], input) == 0) && (Character.compare(t[2][0], input) == 0))
+					|| ((Character.compare(t[0][1], input) == 0) && (Character.compare(t[0][2], input) == 0))
+					|| ((Character.compare(t[1][1], input) == 0) && (Character.compare(t[2][2], input) == 0))) {
+				return true;
+			}
+		}
+
+		// check row 1
+		if ((Character.compare(t[1][0], input) == 0) && (Character.compare(t[1][1], input) == 0)
+				&& (Character.compare(t[1][2], input) == 0)) {
+			return true;
+		}
+
+		// check row 2
+		if ((Character.compare(t[2][0], input) == 0) && (Character.compare(t[2][1], input) == 0)
+				&& (Character.compare(t[2][2], input) == 0)) {
+			return true;
+		}
+		// check column 1
+		if ((Character.compare(t[0][1], input) == 0) && (Character.compare(t[1][1], input) == 0)
+				&& (Character.compare(t[2][1], input) == 0)) {
+			return true;
+		}
+		// check the reminding possible winning situations
+		// from [0,2]
+		if ((Character.compare(t[0][2], input) == 0)) {
+			if (((Character.compare(t[1][2], input) == 0) && (Character.compare(t[2][2], input) == 0))
+					|| ((Character.compare(t[1][1], input) == 0) && (Character.compare(t[2][0], input) == 0))) {
+				return true;
+			}
+
+		}
+	
+			return false;
+
+		
+
+	}
